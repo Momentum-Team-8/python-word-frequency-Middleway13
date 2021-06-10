@@ -1,17 +1,41 @@
+from typing import Text
+import string
+
+
 STOP_WORDS = [
-    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he',
+    'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he', 
     'i', 'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'were',
     'will', 'with'
 ]
 
 
-# open file, then read file
-
-
 def print_word_freq(file):
-    with open(file) as praise_song_for_the_day:
-        text = praise_song_for_the_day.read()
-        print(repr(text[0:-1]))  
+    with open(file) as the_word:
+        text = the_word.read().lower()
+        words = text.split()
+        no_punc = sorted([word.strip(string.punctuation) for word in words])
+
+        print(no_punc)
+
+        word_count = []
+        for word in no_punc:
+            if word not in STOP_WORDS:
+                word_count.append(word)
+
+        print(no_punc)
+        
+        counted = {}
+
+        for word in no_punc:
+        
+            if word in counted:
+                counted[word] = counted[word] + 1
+            elif word not in counted:
+                counted[word] = 1
+
+        print(counted)
+
+        breakpoint()
 
 
 if __name__ == "__main__":
